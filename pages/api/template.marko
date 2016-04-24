@@ -1,0 +1,171 @@
+<optimizer-page package-path="./optimizer.json"/>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>e-RAS</title>
+    <link href="/static/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link href="/static/assets/css/sticky-footer-navbar.css" rel="stylesheet">
+    <optimizer-head/>
+</head>
+<body>
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="true" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/home/index">e-RAS</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse" aria-expanded="true">
+            <ul class="nav navbar-nav">
+              <li><a href="/home/handle">Home</a></li>
+              <li><a href="/static/about.html">About</a></li>
+              <li><a href="/static/contact.html">Contact</a></li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div><!--/.container-fluid -->
+    </nav>
+    <div class="row">1</div>
+    <div class="row">1</div>
+    <div class="page-header text-center">
+        <h1>e-RAS (Extended Risk Analysis System)</h1>
+    </div>
+
+    <if test="data.jsLocation eq 'middle'">
+        <optimizer-body/>
+    </if>
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Languages from Social Media</h3>
+      </div>
+      <div class="panel-body">
+        <async-fragment data-provider="data.langDataProvider"
+            arg-delay="${0}"
+            name="header"
+            var="header"
+            client-reorder="data.reorderEnabled">
+            <async-fragment-placeholder>
+                Loading Content...
+            </async-fragment-placeholder>
+            <async-fragment-timeout>
+                <p>Timeout occurred on API call</p>
+            </async-fragment-timeout>
+            <header>
+                <p>Language detected: $header.lang</p>
+            </header>
+        </async-fragment>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Sentiment Analysis from Social Media</h3>
+      </div>
+      <div class="panel-body">
+        <async-fragment data-provider="data.sentimentDataProvider"
+            arg-delay="${0}"
+            name="sentiment"
+            var="sentiment"
+            client-reorder="data.reorderEnabled">
+            <async-fragment-placeholder>
+                Loading Content...
+            </async-fragment-placeholder>
+            <async-fragment-timeout>
+                <p>Timeout occurred on API call</p>
+            </async-fragment-timeout>
+            <header>
+                <p>Sentiment Type: $sentiment.result</p>
+            </header>
+        </async-fragment>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Emotion Analysis from Social Media</h3>
+      </div>
+      <div class="panel-body">
+        <async-fragment data-provider="data.emotionDataProvider"
+            arg-delay="${0}"
+            name="emotion"
+            var="emotion"
+            client-reorder="data.reorderEnabled">
+            <async-fragment-placeholder>
+                Loading Content...
+            </async-fragment-placeholder>
+            <async-fragment-timeout>
+                <p>Timeout occurred on API call</p>
+            </async-fragment-timeout>
+            <header>
+            <ul>
+                <li>Anger: $emotion.anger</li>
+                <li>Disgust: $emotion.disgust</li>
+                <li>Fear: $emotion.fear</li>
+                <li>Joy: $emotion.joy</li>
+                <li>Sadness: $emotion.sadness</li>
+            </ul>    
+            </header>
+        </async-fragment>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <h3 class="panel-title">Concepts Analysis from Social Media</h3>
+      </div>
+      <div class="panel-body">
+        <async-fragment data-provider="data.conceptsDataProvider"
+            arg-delay="${0}"
+            name="concepts"
+            var="concepts"
+            client-reorder="data.reorderEnabled">
+            <async-fragment-placeholder>
+                Loading Content...
+            </async-fragment-placeholder>
+            <async-fragment-timeout>
+                <p>Timeout occurred on API call</p>
+            </async-fragment-timeout>
+            <header>
+                <ul>
+                    <for each="item in concepts.resultArr">
+                        <li>${item}</li>
+                    </for>
+                </ul>
+            </header>
+        </async-fragment>
+      </div>
+    </div>
+    <async-fragment data-provider="data.footerDataProvider"
+        arg-delay="${10}"
+        var="footer"
+        client-reorder="data.reorderEnabled">
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted text-center">Powered by : IBM Watson Technology - AlchemyAPI services</p>
+      </div>
+    </footer>
+
+    </async-fragment>
+
+    <async-fragments/>
+
+    <if test="data.jsLocation eq 'bottom'">
+        <optimizer-body/>
+        <init-widgets/>
+    </if>
+    <else>
+        <init-widgets immediate/>
+        <!-- NOTE: Use immediate if the JavaScript is included before the rendered widgets -->
+    </else>
+    
+<script src="/static/assets/js/jquery.min.js"></script>
+<script src="/static/assets/js/bootstrap.min.js"></script>
+</body>
+</html>

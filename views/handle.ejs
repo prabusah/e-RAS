@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>e-RAS</title>
+    <meta charset="UTF-8" />
+    <meta name="author" content="ARAM Team" />
+    <meta name="theme-color" content="#006cb4" id="themeColor">
+    <meta name="viewport" content="width=device-width, minimum-scale=1.0, user-scalable=no">
+    <link href="/static/assets/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="manifest" href="static/assets/manifest.json">
+    <link rel="icon" href="/static/assets/images/chrome-touch-icon-192x192.png" sizes="192x192" type="image/png">
+    <link rel="icon" href="/static/assets/images/chrome-touch-icon-384x384.png" sizes="384x384" type="image/png">
+    <style>body{padding-top:50px}.helpCustom{color:yellow;}.bodyCustom{background:#027cd5;color:#fff}.spinner{display:none;position:absolute;top:0;left:0;width:100%;height:100%;background-color:#000;z-index:1001;-moz-opacity:.8;opacity:.8;filter:alpha(opacity=80)}</style>
+</head>
+<body class="container bodyCustom">
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container-fluid">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar" aria-expanded="true" aria-controls="navbar">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/home/index">e-RAS</a>
+          </div>
+          <div id="navbar" class="navbar-collapse collapse" aria-expanded="true">
+            <ul class="nav navbar-nav">
+              <li class="active"><a class="home" href="/home/handle">Home</a></li>
+              <li><a class="contact" href="/static/about.html">About</a></li>
+              <li><a class="contact" href="/static/contact.html">Contact</a></li>
+            </ul>
+          </div>
+        </div>
+    </nav>
+    <div class="starter-template">
+        <h1>Extended Risk Analysis System - (e-RAS)</h1>
+        <p class="lead">In addition to User Provided data, Medical Reports etc. e-RAS allows an Underwriter to analyze risks based on Social Media data</p>
+        <p class="lead">Please key-in Customer twitter handle</p>
+    </div>
+    <div id="spinner" class="spinner"></div>
+<form class="form-horizontal" action="/home/api" method="post">
+ <div class="form-group">
+    <label for="twitterHandle" class="col-sm-5 control-label">Customer Twitter Handle</label>
+    <div class="col-sm-7">
+      <div class="input-group">
+        <div class="input-group-addon">@</div>
+        <input type="text" class="ministry form-control" id="twitterHandle" name="twitterHandle" placeholder="" required>
+      </div>
+    </div>
+  </div>                           
+  <div class="form-group">
+    <div class="col-sm-offset-2 col-sm-10"> 
+      <button type="submit" id="tweetButton" class="btn btn-default center-block has-spinner">Analyze</button>
+    </div>
+  </div>
+</form>
+    <footer class="footer bg-primary">
+      <div class="container">
+        <p class=" text-center">Comments/Suggestion : Team ARAM</p>
+      </div>
+    </footer>
+    <script src="/static/assets/js/jquery.min.js"></script>
+    <script src="/static/assets/js/spin.min.js"></script>
+    <script src="/static/assets/js/bootstrap.min.js"></script>
+    <script>
+    $(document).ready(function(){
+      $("#tweetButton").click(function() {
+            var opts = {
+                lines: 13 // The number of lines to draw
+              , length: 18 // The length of each line
+              , width: 10 // The line thickness
+              , radius: 22 // The radius of the inner circle
+              , scale: 1 // Scales overall size of the spinner
+              , corners: 1 // Corner roundness (0..1)
+              , color: '#FFF' // #rgb or #rrggbb or array of colors
+              , opacity: 0.25 // Opacity of the lines
+              , rotate: 0 // The rotation offset
+              , direction: 1 // 1: clockwise, -1: counterclockwise
+              , speed: 1 // Rounds per second
+              , trail: 60 // Afterglow percentage
+              , fps: 20 // Frames per second when using setTimeout() as a fallback for CSS
+              , zIndex: 2e9 // The z-index (defaults to 2000000000)
+              , className: 'spinner' // The CSS class to assign to the spinner
+              , top: '70%' // Top position relative to parent
+              , left: '50%' // Left position relative to parent
+              , shadow: false // Whether to render a shadow
+              , hwaccel: false // Whether to use hardware acceleration
+              , position: 'absolute' // Element positioning
+            }
+            var tweetHandle = document.getElementById('twitterHandle').value;
+            if(tweetHandle === '' || tweetHandle === undefined || tweetHandle === null) return;
+            var target = document.getElementById('spinner');
+            var spinner = new Spinner(opts).spin(target);
+            $(".spinner").show();
+      });      
+    });
+    </script>
+
+  </body>
+</html> 
+         
